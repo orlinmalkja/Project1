@@ -14,5 +14,6 @@ def calcSum(arr):
     sum += arr[i]
   return sum
 
+sum = calcSum([3,4,6])
 
 show()
