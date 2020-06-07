@@ -20,10 +20,14 @@ sum = 3
 
 show()
 
+def printNumbers():
+  for i in range(10):
+    print(i)
 
 
-=======
+
+
 
 print("Billing System 2020")
 show()
->>>>>>> origin/master
+
