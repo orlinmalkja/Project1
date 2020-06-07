@@ -18,5 +18,12 @@ sum = calcSum([3,4,6])
 
 sum = 3
 
+show()
+
+
+
+=======
+
 print("Billing System 2020")
 show()
+>>>>>>> origin/master
