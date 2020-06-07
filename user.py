@@ -8,3 +8,6 @@ class User:
 
   def setName(self,newName):
       self.name = newName
+
+  def toString(self):
+    print("User with id",self.id,"and name",self.name)
