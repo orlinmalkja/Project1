@@ -11,3 +11,6 @@ class User:
 
   def toString(self):
     print("User with id",self.id,"and name",self.name)
+
+  def show(self)
+   print(".....")
