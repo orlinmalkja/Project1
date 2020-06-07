@@ -20,6 +20,10 @@ sum = 3
 
 show()
 
+def printNumbers():
+  for i in range(10):
+    print(i)
+
 
 
 =======
