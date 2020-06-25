@@ -112,3 +112,11 @@ class Table :
     def checkType(self,ttype):return self.__type==type(ttype)
     # returns a line into an object of specified type of table
     def toObject(self,line):return self.__toObject(line)
+
+
+db1 = Database("bills")
+#db1.createtableifnotexists("bill",Bill,Bill.fromline)
+
+#db1.appendObjectsInto("bill",[bill1, bill2, bill3])
+
+db1.deleteObjectsFrom("bill",lambda x:x._id==1)
