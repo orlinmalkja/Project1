@@ -118,5 +118,5 @@ db1 = Database("bills")
 #db1.createtableifnotexists("bill",Bill,Bill.fromline)
 
 #db1.appendObjectsInto("bill",[bill1, bill2, bill3])
-
+db1.getObjectsFrom("User",lambda x:x)
 db1.deleteObjectsFrom("bill",lambda x:x._id==1)
