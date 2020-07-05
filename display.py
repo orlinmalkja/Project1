@@ -1,70 +1,54 @@
 class Display:
+    #Why declared as static method ?
+    @staticmethod
+    def welcome():
+        actions = ['Log in','Register','Help']
 
-  @staticmethod
-  def welcome():
-    while True:
-  #show some options
-      print("Welcome !")
-      print("Type 1 to add a new bill: ")
-      print("Type 2 to delete a bill: ")
-      print("Type 3 to see the paid bills section: ")
-      print("Type 4 to see the unpaid bills section: ")
+        for i in range(len(actions)):
+            print("Please type",i,"to",actions[i])
 
-  #get choice of the user
+        userInput = input("Input:")
+        return userInput
 
-      choice = input()
+    @staticmethod
+    def enterLoginInfo():
+        print("Please enter the following info in order to log in")
+        email = input("email")
+        passw = input("password")
+        return email, passw
 
-     
-  #return the userInput (keep as it is, do not type cast into "int")
-    
+    @staticmethod
+    def menuLoggedInAsUser():
+        actions = ['Manage Bills']
+        for i in range(len(actions)):
+            print("Please type", i, "to", actions[i])
+        userInput = input("Input:")
+        return userInput
 
-  @staticmethod
-  def enterLoginInfo():
-  #get input from user for email and pass
-    email = input("Enter your email: ")
-    def getEmail(self):
-      return self.email 
-    password = input("Enter your password: ")
-    def getPassword(self):
-      return self.password
-    
+    @staticmethod
+    def addBill():
+        print("Please enter the following info for the bill")
+        id = (input("ID:"))
+        isPayed = input("Payed? (y or n):")
+        date = input("date:")
+        name = input("Name:")
+        amount = input("Amount:")
+
+        #valido te dhenat
+        return id, isPayed, date, name, amount
+
+    @classmethod
+    def enterRegisterInfo(self):
+        attributes = ["ID","name","birthday","email","password"]
+
+        print("Please enter the registration info")
+        id = int(input("ID:"))
+        name = input("name:")
+        birthday = input("birthday:")
+        email = input("email:")
+        password = input("password:")
+        address = input("address")
+        return id,name,birthday,email,password,address
 
 
-  @staticmethod
-  def menuLoggedInAsUser():
-  #show some actions that the user can take when he is logged in
-  #get choice of the user
-  ##return the userInput (keep as it is, do not type cast into "int")
-    pass
 
-
-  @staticmethod
-  def addBill():
-  #show the attributes of the bill
-  #get the userInput for each attribte : Ex Id:1 , Payed ? "1" or "0"
-  #return all the userInput values for the bill
-    pass
-
-  def enterRegisterInfo(self):
-  # show the attributes of the user
-    id = input("Enter your ID: ")
-    def getID(self):
-      return self.id
-    name = input("Enter your name: ")
-    def getName(self):
-      return self.name
-    surname = input("Enter your surname: ")
-    def getSurname(seflf):
-      return self.surname
-    email = input("Enter your email: ")
-    def getEmail(self):
-      return self.email 
-    password = input("Enter your password: ")
-    def getPassword(self):
-      return self.password
-    age = input("Enter your age: ")
-    def getAge(self):
-      return self.age
-  # get the userInput for each attribte : Ex Id:1 , name=Arnold,  email andoci@gmail.com
-  # return all the user info
-    pass

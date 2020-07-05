@@ -11,7 +11,7 @@ class Database:
         # create a dictionary that will hold tables
         self.tables = {}
 
-    # creates a file if it does not exist
+    # creates a file if it does ont exists
     def createtableifnotexists(self,tname,ttype,toObject):
         # check if is created before
         if(not path.exists(self.mainpath+path.sep+tname)):
@@ -33,6 +33,32 @@ class Database:
             records = []
             # read all lines
             lines = fp.readlines()
+            try:
+                for line in lines:
+                    # construct the object by the specific function
+                    record = table.toObject(line.split("\n")[0])
+                    # if object fullfill the condition then add into list
+
+                    #print("line ",line)
+                    if(condition(record)):
+                        records.append(record)
+            except:
+                print("There are no registered users yet")
+            # close the file and then return the ist of selected objects
+            fp.close()
+            return records
+        return(101,"file not found")
+
+    def updateUser(self,tname,condition=lambda a:True):
+
+        #toDo
+        # find table data from the dictionary
+        table = self.tables[tname]
+        # open the file
+        with (open(table.getpath(),"r")) as fp:
+            records = []
+            # read all lines
+            lines = fp.readlines()
             for line in lines:
                 # construct the object by the specific function
                 record = table.toObject(line)
@@ -44,6 +70,27 @@ class Database:
             fp.close()
             return records
         return(101,"file not found")
+
+    def updateUsers(self,tname,obj):
+        pass
+
+    def validateLogin(self,tname,email,passw):
+        table = self.tables[tname]
+        # open the file
+        with (open(table.getpath(), "r")) as fp:
+            records = []
+            # read all lines
+            lines = fp.readlines()
+            for line in lines:
+                # construct the object by the specific function
+                record = table.toObject(line)
+                # if object fullfill the condition then add into list
+                if (condition(record)):
+                    records.append(record)
+            # close the file and then return the ist of selected objects
+            fp.close()
+            return records
+        return (101, "file not found")
 
     # this method just adds the objects in the end of the file
     def appendObjectsInto(self,tname,records):
@@ -114,9 +161,135 @@ class Table :
     def toObject(self,line):return self.__toObject(line)
 
 
-db1 = Database("bills")
-#db1.createtableifnotexists("bill",Bill,Bill.fromline)
+# simple base object
+class BaseObject:
+    def __init__(self,ID):
+        self._ID = ID
+    def setID(self,newID):self._ID = newID
 
+    def getID(self):return self._ID
+
+    # mandatory method for each class storable to be created
+    # returns a line holding information for a specific object
+    def toString(self):
+        # all fields separated by comma ending the line with \n
+        return str(self._ID)
+
+    #gets a line  of string and from that line the object is constructed
+    # methods toString and fromLine are inverse of each other as
+    #  class.fromString(a.toString()).toString() =  a.toString()
+    @classmethod
+    def fromLine(cls,line):
+        tokens = line.split(",")
+        return cls(tokens[0])
+
+# create three simple objects
+# Obj1 = BaseObject(1)
+# Obj2 = BaseObject(2)
+# Obj3 = BaseObject(3)
+
+# # create the database object
+# db = Database(dbname="database1")
+#
+# # create table if not exists pass as argument table name, object type to sav
+# # and the function to convert a line into an object
+# db.createtableifnotexists("baseobjects",BaseObject,BaseObject.fromLine)
+# # append the objects in the table. you can append one or more objects
+# db.appendObjectsInto("baseobjects",[Obj1,Obj2,Obj3])
+# # table state  1\n2\n3\n
+#
+# db.overwriteObjectsInto("baseobjects",[BaseObject(1),BaseObject(3),BaseObject(7)])
+# # table state 1\n2\n7\n
+# # get the objects
+# a = db.getObjectsFrom("baseobjects",lambda c:True)
+# print(a)
+
+
+
+class Bill:
+    def __init__(self,id,isPayed,date,name,amount):
+        self._id = id
+        self._isPayed = isPayed
+        self._date = date
+        self._name = name
+        self._amount = amount
+
+
+    def toString(self):
+        return str(self._id)+","+self._isPayed+","+self._date.toString()+","+str(self._name)+","+str(self._amount)
+
+    @classmethod
+    def fromline(cls,line):
+        fields = line.split(",")
+        id = int(fields[0])
+        isPayed = (fields[1])
+        date = Date.fromString(fields[2])
+        name = fields[3]
+        amount = float(fields[4])
+        return cls(id,isPayed,date,name,amount)
+
+
+
+#print("test 1")
+# bill1 = Bill(1,Date.fromString("2020/12/1"),"Fature Dritash",20.5)
+# bill2 = Bill(2,Date.fromString("2020/11/1"),"Fature Uji",17.5)
+# bill3 = Bill(3,Date.fromString("2020/10/1"),"Fature Telefoni",13.5)
+
+#user1 = User(1,"Orlin Malkja",Date.fromString("2020/12/10"),"omalkja17@epoka.edu.al","0123")
+
+
+#db1 = Database("database")
+#db1.createtableifnotexists("bill",Bill,Bill.fromline)
+#
+#db1.createtableifnotexists("users",User,User.fromline)
+#
+#db1.appendObjectsInto("users",[user1])
+#
 #db1.appendObjectsInto("bill",[bill1, bill2, bill3])
-db1.getObjectsFrom("User",lambda x:x)
-db1.deleteObjectsFrom("bill",lambda x:x._id==1)
+#
+#db1.deleteObjectsFrom("bill",lambda x:x._id==1)
+
+#db1.overwriteObjectsInto("storebill",[bill4, bill5])
+
+#records = db1.getObjectsFrom("bill")
+
+# for record in records:
+#      print(record._id,record._date.toString())
+
+
+
+#bills = [bill1,bill2,bill3]
+
+def ofilter(obj):
+    if obj._id==2:
+        return True
+    else:
+        return False
+
+
+# #TODO 16.06 -
+#
+# #Krijoni klasat perkatese ku pervec metodave te tjera , te JENE  metoda toString dhe metoda fromLine(qe kthen nga nje rresht ne nje objekt)
+#
+# #Testoni metodat
+# #1 createtableifnotexists()
+# #2 getObjectsFrom()
+# #3 appendObjectsInto()
+# #4 deleteObjectsFrom()
+#
+# records = db1.getObjectsFrom('bill')
+# print("-------")
+# for record in records:
+#     print(record.toString())
+
+#
+#faturat = db1.deleteObjectsFrom("bill",ofilter)
+
+
+
+
+
+#
+# for fatura in faturat:
+#     print("Faturat ",fatura.toString())
+#

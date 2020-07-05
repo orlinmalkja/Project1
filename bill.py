@@ -1,34 +1,32 @@
+from date import Date
+
 class Bill:
-    def __init__(self, creator, billtype, date, paid, price):
-        self.creator = creator
-        self.billtype = billtype
-        self.date = date
-        self.paid = paid
-        self.price = price
+    def __init__(self,id,isPayed,date,name,amount,userName):
+        self._id = id
+        self._isPayed = isPayed
+        self._date = date
+        self._name = name
+        self._amount = amount
+        self._userName = userName
+
+
+    def isPayed(self):
+        return self._isPayed
+
+    def getUserName(self):
+        return self._userName
+
+    def toString(self):
+        return str(self._id)+","+str(self._isPayed)+","+self._date.toString()+","+str(self._name)+","+str(self._amount)+","+str(self._userName)
 
     @classmethod
-    def fromstringbill(cls, x):
-        _creator, _billtype, _date, _paid, _price = x.split("-")
-        return cls(_creator, _billtype, _date, _paid, _price)
+    def fromline(cls,line):
+        fields = line.split(",")
+        id = int(fields[0])
+        isPayed = (fields[1])
+        date = Date.fromString(fields[2])
+        name = fields[3]
+        amount = float(fields[4])
+        userName = fields[5]
 
-    def getCreator(self):
-        return self.creator
-    def getBilltype(self):
-        return self.billtype
-    def getDate(self):
-        return self.date
-    def getPaid(self):
-        return self.paid
-    def getPrice(self):
-        return self.price
-
-    def setCreator(self, creator):
-        self.creator = creator
-    def setBilltype(self, billtype):
-        self.billtype = billtype
-    def setDate(self, date):
-        self.date = date
-    def setPaid(self, paid):
-        self.paid = paid
-    def setPrice(self, price):
-        self.price = price
+        return cls(id,isPayed,date,name,amount,userName)
