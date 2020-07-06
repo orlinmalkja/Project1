@@ -49,8 +49,8 @@ def showUnpayedBills(db1,userName):
 
 def addbill(db1, userName):
 
-    id, isPayed, date, name,amount= Display.addBill()  # valido
-    line = str(id) + "," + str(isPayed) + "," + str(date) + ","+str(name)+","+str(amount)+","+str(userName)
+    id, isPayed, date, billType,amount= Display.addBill()  # valido
+    line = str(id) + "," + str(isPayed) + "," + str(date) + ","+str(billType)+","+str(amount)+","+str(userName)
     billObject = Bill.fromline(line)
 
     # add the bill into the databaze

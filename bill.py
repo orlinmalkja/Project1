@@ -1,11 +1,11 @@
 from date import Date
 
 class Bill:
-    def __init__(self,id,isPayed,date,name,amount,userName):
+    def __init__(self,id,isPayed,date,billType,amount,userName):
         self._id = id
         self._isPayed = isPayed
         self._date = date
-        self._name = name
+        self._billType = name
         self._amount = amount
         self._userName = userName
 
@@ -17,7 +17,7 @@ class Bill:
         return self._userName
 
     def toString(self):
-        return str(self._id)+","+str(self._isPayed)+","+self._date.toString()+","+str(self._name)+","+str(self._amount)+","+str(self._userName)
+        return str(self._id)+","+str(self._isPayed)+","+self._date.toString()+","+str(self._billType)+","+str(self._amount)+","+str(self._userName)
 
     @classmethod
     def fromline(cls,line):
@@ -25,8 +25,8 @@ class Bill:
         id = int(fields[0])
         isPayed = (fields[1])
         date = Date.fromString(fields[2])
-        name = fields[3]
+        billType = fields[3]
         amount = float(fields[4])
         userName = fields[5]
 
-        return cls(id,isPayed,date,name,amount,userName)
+        return cls(id,isPayed,date,billType,amount,userName)

@@ -31,11 +31,15 @@ class Display:
         id = (input("ID:"))
         isPayed = input("Payed? (y or n):")
         date = input("date:")
-        name = input("Name:")
+        for i in range(4):
+          types = ["Electricity bill", "Water bill", "Internet bill", "Phone bill"]
+          print("Press", i, "if this is a(n)", types[i])
+        inp = int(input("Press 0, 1, 2 or 3:"))
+        billType = types[inp]
         amount = input("Amount:")
 
         #valido te dhenat
-        return id, isPayed, date, name, amount
+        return id, isPayed, date, billType, amount
 
     @classmethod
     def enterRegisterInfo(self):
