@@ -43,7 +43,7 @@ class Database:
                     if(condition(record)):
                         records.append(record)
             except:
-                print("There are no registered users yet")
+                print("..")
             # close the file and then return the ist of selected objects
             fp.close()
             return records

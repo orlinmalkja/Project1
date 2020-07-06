@@ -5,7 +5,7 @@ class Bill:
         self._id = id
         self._isPayed = isPayed
         self._date = date
-        self._billType = name
+        self._billType = billType
         self._amount = amount
         self._userName = userName
 

@@ -31,8 +31,8 @@ class Display:
         id = (input("ID:"))
         isPayed = input("Payed? (y or n):")
         date = input("date:")
-        for i in range(4):
-          types = ["Electricity bill", "Water bill", "Internet bill", "Phone bill"]
+        types = ["Electricity bill", "Water bill", "Internet bill", "Phone bill"]
+        for i in range(4):       
           print("Press", i, "if this is a(n)", types[i])
         inp = int(input("Press 0, 1, 2 or 3:"))
         billType = types[inp]
