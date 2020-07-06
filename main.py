@@ -14,16 +14,16 @@ def registerUser():
     userObj = User(id, name, Date.fromString(birthday), email, password, address)
     return userObj
 
-def manageBills(db1,email):
+def manageBills(db1,userName):
     while True:
         print(" 1 add a bill, 2-change bill status , 3-show unpayed bills 4-delete a bill 5-main menu")
         a = input("Please enter the number")
         if a=="1":
-            addbill(db1,email)
+            addbill(db1,userName)
         elif a=="2":
-            changeBillStatus(db1,email)
+            changeBillStatus(db1,userName)
         elif a=="3":
-            showUnpayedBills(db1,email)
+            showUnpayedBills(db1,userName)
         else:
             return
 #
@@ -38,32 +38,20 @@ def manageBills(db1,email):
 
 #print(len(bills))
 
-def showUnpayedBills(db1,email):
-    userObj = db1.getObjectsFrom("users", lambda x: (x._email == email))
-    userName = userObj[0].getName()
+def showUnpayedBills(db1,userName):
 
-    bills = db1.getObjectsFrom("bills")
-
+    bills = db1.getObjectsFrom("bills",lambda x:( x.getUserName()==userName and x.isPayed()=='n' ))
 
     print("The Unpayed bills are the following")
     for bill in bills:
-
-        if ((bill.isPayed() == 'n') and (bill._userName == userName)):
             print(bill.toString())
     return
 
-def addbill(db1, email):
-    # get data from user
-
-    userObj = db1.getObjectsFrom("users", lambda x: (x._email == email))
-    userName = userObj[0].getName()
-
+def addbill(db1, userName):
 
     id, isPayed, date, name,amount= Display.addBill()  # valido
-    #obj = Bill(id, isPayed, date,name,amount,userName)
     line = str(id) + "," + str(isPayed) + "," + str(date) + ","+str(name)+","+str(amount)+","+str(userName)
     billObject = Bill.fromline(line)
-
 
     # add the bill into the databaze
     try:
@@ -88,7 +76,7 @@ def changeBillStatus(db1, email):
 #NOTE: the bill class should have a username (which refers to the person who is creating the bill)
 #In the User class remove the bills[] attribute , since it would require some changes in the database
 
-def start_session(db1,email):
+def start_session(db1,userName):
     #since we will do some actions with a certain user , we are "passing the parameters db and username (in order to keep track of the info of the current user in this function
     # and other functions to come"
     # TODO the main fonctionalities are implemented here after the user logs in
@@ -97,14 +85,14 @@ def start_session(db1,email):
         choice = Display.menuLoggedInAsUser()
 
         if choice=="0":
-            manageBills(db1, email)
+            manageBills(db1, userName)
             # TODO Action to take when chosen 1
             pass
         if choice=="1":
             #TODO Action to take when chosen 2
             #manage Bills will be followed by a menu , which will display a menu (add a bill, update status of bill (unpayed->payed)
             #delete a certain bill)
-            updateAccount(db1,email)
+            updateAccount(db1,userName)
             pass
         else :
             break
@@ -146,11 +134,13 @@ while True:
             obj = db1.getObjectsFrom("users",lambda x:( x._email==email and x._passw==password ))
 
             if len(obj)>0:
+                userName = obj[0].getName()
                 print("successful login")
-                start_session(db1,email)
+                start_session(db1,userName)
 
             else:
                 print("no such user exists")
+                continue
 
         elif userInput == "1":
             #id, name, birthday, email, password, address = disp.enterRegisterInfo()
