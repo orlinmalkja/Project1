@@ -7,14 +7,14 @@ class Display:
         for i in range(len(actions)):
             print("Please type",i,"to",actions[i])
 
-        userInput = input("Input:")
+        userInput = input("Input: ")
         return userInput
 
     @staticmethod
     def enterLoginInfo():
         print("Please enter the following info in order to log in")
-        email = input("email")
-        passw = input("password")
+        email = input("Email: ")
+        passw = input("Password: ")
         return email, passw
 
     @staticmethod
@@ -22,21 +22,21 @@ class Display:
         actions = ['Manage Bills']
         for i in range(len(actions)):
             print("Please type", i, "to", actions[i])
-        userInput = input("Input:")
+        userInput = input("Input: ")
         return userInput
 
     @staticmethod
     def addBill():
         print("Please enter the following info for the bill")
-        id = (input("ID:"))
-        isPayed = input("Payed? (y or n):")
-        date = input("date:")
+        id = (input("ID: "))
+        isPayed = input("Payed? (y or n): ")
+        date = input("Date: ")
         types = ["Electricity bill", "Water bill", "Internet bill", "Phone bill"]
         for i in range(4):       
           print("Press", i, "if this is a(n)", types[i])
-        inp = int(input("Press 0, 1, 2 or 3:"))
+        inp = int(input("Type 0, 1, 2 or 3: "))
         billType = types[inp]
-        amount = input("Amount:")
+        amount = input("Amount: ")
 
         #valido te dhenat
         return id, isPayed, date, billType, amount
@@ -46,12 +46,12 @@ class Display:
         attributes = ["ID","name","birthday","email","password"]
 
         print("Please enter the registration info")
-        id = int(input("ID:"))
-        name = input("name:")
-        birthday = input("birthday:")
-        email = input("email:")
-        password = input("password:")
-        address = input("address")
+        id = int(input("ID: "))
+        name = input("Name: ")
+        birthday = input("Birthday: ")
+        email = input("Email: ")
+        password = input("Password: ")
+        address = input("Address: ")
         return id,name,birthday,email,password,address
 
 
