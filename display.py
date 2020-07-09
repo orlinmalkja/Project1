@@ -57,3 +57,6 @@ class Display:
         inp = int(input("Press 0 or 1:"))
         status = statuses[inp]
         return id,name,birthday,email,password,address,status
+
+
+
