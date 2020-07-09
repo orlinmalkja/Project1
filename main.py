@@ -10,13 +10,13 @@ db1.createtableifnotexists("users",User,User.fromline)
 db1.createtableifnotexists("bills",Bill,Bill.fromline)
 
 def registerUser():
-    id, name, birthday, email, password, address = Display.enterRegisterInfo()
-    userObj = User(id, name, Date.fromString(birthday), email, password, address)
+    id, name, birthday, email, password, address, status = Display.enterRegisterInfo()
+    userObj = User(id, name, Date.fromString(birthday), email, password, address, status)
     return userObj
 
 def manageBills(db1,userName):
     while True:
-        print(" 1 add a bill, 2-change bill status , 3-show unpayed bills 4-delete a bill 5-main menu")
+        print(" 1 add a bill, 2-change bill status , 3-show unpaid bills 4-delete a bill 5-main menu")
         a = input("Please enter the number")
         if a=="1":
             addbill(db1,userName)
@@ -40,17 +40,18 @@ def manageBills(db1,userName):
 
 def showUnpayedBills(db1,userName):
 
-    bills = db1.getObjectsFrom("bills",lambda x:( x.getUserName()==userName and x.isPayed()=='n' ))
+    bills = db1.getObjectsFrom("bills",lambda x:( x.getUserName()==userName and x.isPaid()=='n' ))
 
-    print("The Unpayed bills are the following")
+    print("The Unpaid bills are the following")
     for bill in bills:
             print(bill.toString())
+    #shto gjendjen e bill qe do ndryshuar, shto ndryshimin nga y ne n
     return
 
 def addbill(db1, userName):
 
-    id, isPayed, date, billType,amount= Display.addBill()  # valido
-    line = str(id) + "," + str(isPayed) + "," + str(date) + ","+str(billType)+","+str(amount)+","+str(userName)
+    id, isPaid, date, billType,amount= Display.addBill()  # valido
+    line = str(id) + "," + str(isPaid) + "," + str(date) + ","+str(billType)+","+str(amount)+","+str(userName)
     billObject = Bill.fromline(line)
 
     # add the bill into the databaze
@@ -60,14 +61,16 @@ def addbill(db1, userName):
         print("Error while adding a bill in the database")
 
 def changeBillStatus(db1, email):
-    # #Todo Shfaq faturat e papaguara, zgjedh njeren dhe i ndryshon statusin
-    # Mund ta bejme dhe te shfaqe   ;
-    # gjeje faturen sipas id , merr objektin e fatures, shfaq faturen, pyet a ta vendos te paguar
-    # Nese po, set isPayed true
-    # delete,append
-    # nese i ben overwrite, lexo te gjitha , modifiko nje nga el e listes , overwrite te githe listes
-    # bills = db.getobjectsfrom("bills",l)
-        pass
+    bills = db1.getObjectsFrom("bills", lambda x: (x.getUserName() == userName and x.isPaid() == 'n'))
+
+    print("The Unpayed bills are the following")
+    for bill in bills:
+        print(bill.toString())
+    chosenbill = str(input("Enter the ID of the bill you have paid:"))
+    bills1 = db1.getObjectsFrom("bills", lambda x: (x.getUserName() == userName and x.isPaid() == 'n' and x.findid() == chosenbill))
+    for bill in bills1:
+        bill.setPaid("y")
+        print(bill.toString())
 
 
 
