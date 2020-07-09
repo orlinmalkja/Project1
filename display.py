@@ -12,9 +12,9 @@ class Display:
 
     @staticmethod
     def enterLoginInfo():
-        print("Please enter the following info in order to log in")
-        email = input("email")
-        passw = input("password")
+        print("Please enter the following information in order to log in.")
+        email = input("Email: ")
+        passw = input("Password: ")
         return email, passw
 
     @staticmethod
@@ -27,10 +27,10 @@ class Display:
 
     @staticmethod
     def addBill():
-        print("Please enter the following info for the bill")
+        print("Please enter the following information for the bill.")
         id = (input("ID:"))
         isPaid = input("Paid? (y or n):")
-        date = input("date:")
+        date = input("Date:")
         types = ["Electricity bill", "Water bill", "Internet bill", "Phone bill"]
         for i in range(4):
           print("Press", i, "if this is a(n)", types[i])
@@ -45,12 +45,12 @@ class Display:
     def enterRegisterInfo(self):
         attributes = ["ID","name","birthday","email","password","address","status"]
         print("Please enter the registration info")
-        id = int(input("ID:"))
-        name = input("name:")
-        birthday = input("birthday:")
-        email = input("email:")
-        password = input("password:")
-        address = input("address")
+        id = int(input("ID: "))
+        name = input("Name: ")
+        birthday = input("Birthday: ")
+        email = input("Email: ")
+        password = input("Password: ")
+        address = input("Address: ")
         statuses = ["user", "admin"]
         for i in range(2):
             print("Press", i, "if you're registering as a", statuses[i])

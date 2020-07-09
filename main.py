@@ -63,7 +63,7 @@ def addbill(db1, userName):
 def changeBillStatus(db1, email):
     bills = db1.getObjectsFrom("bills", lambda x: (x.getUserName() == userName and x.isPaid() == 'n'))
 
-    print("The Unpayed bills are the following")
+    print("The Unpaid bills are the following")
     for bill in bills:
         print(bill.toString())
     chosenbill = str(input("Enter the ID of the bill you have paid:"))
