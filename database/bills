@@ -1,7 +1,6 @@
 2,y,2020/04/20,Fature dritash,3000.0,Klovis
 4,y,2020/01/30,Electricity bill,1000.0,Klovis
 5,n,2020/04/30,Phone bill,1000.0,Klovis
-1,y,2020/05/30,Fature uji,100.0,Klovis
 3,y,2020/02/20,Fature gjelberimi,200.0,Klovis
 6,y,2019/02/20,Fature gjelberimi,300.0,Klovis
 7,y,2019/02/22,Fature uji,200.0,Klovis
@@ -10,3 +9,6 @@
 10,y,2018/02/20,Fature gjelberimi,300.0,Klovis
 11,y,2018/02/22,Fature uji,200.0,Klovis
 12,y,2018/02/10,Fature dritash,2000.0,Klovis
+13,n,2020/07/10,Water bill,1000.0,Klovis
+2,n,2020/07/10,Electricity bill,800.0,Dea
+1,y,2020/07/10,Internet bill,1300.0,Dea

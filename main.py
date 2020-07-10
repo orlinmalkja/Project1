@@ -121,7 +121,7 @@ def changeBillStatus(db1, userName):
 
     return
 
-def deleteBill(db1, userName):
+def deleteBill(db1, email):
   bills = db1.getObjectsFrom("bills", lambda x: (x.getUserName() == userName))
   print("Your registered bills are the following: ")
   for bill in bills:
