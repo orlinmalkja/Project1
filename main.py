@@ -16,11 +16,11 @@ def registerUser():
     return userObj
 
 def viewExpenses(db1, userName):
-    user_input = input("Press 0-view Expenses by year , 1-view Expenses by month")
+    user_input = input("Press 0 to view expenses by year, 1 to view expenses by month: ")
 
     if user_input == "0":
-        start_year = int(input("Please enter the starting year that you want to view the total expenses"))
-        end_year = int(input("Please enter the end year that you want to view the total expenses"))
+        start_year = int(input("Please enter the starting year that you want to view the total expenses: "))
+        end_year = int(input("Please enter the end year that you want to view the total expenses: "))
         num_years = end_year - start_year +1
         years = []
         total_expenses = []
@@ -55,8 +55,8 @@ def viewExpenses(db1, userName):
 
 def manageBills(db1,userName):
      while True:
-        print(" 1 add a bill, 2-change bill status , 3-show unpaid bills 4-delete a bill 5-View expenses 6-Main Menu")
-        a = input("Please enter the number")
+        print("Press 1 to add a bill, press 2 to change bill status, press 3 to show unpaid bills, press 4 to delete a bill, press 5 to view expenses, press 6 to return to Main Menu.")
+        a = input("Please enter a number: ")
         if a == "1":
             addbill(db1, userName)
         elif a == "2":
@@ -104,15 +104,15 @@ def addbill(db1, userName):
     try:
        db1.appendObjectsInto("bills",[billObject])
     except:
-        print("Error while adding a bill in the database")
+        print("Error while adding a bill in the database.")
 
 def changeBillStatus(db1, userName):
     bills = db1.getObjectsFrom("bills", lambda x: (x.getUserName() == userName and x.isPaid() == 'n'))
 
-    print("The Unpaid bills are the following:")
+    print("The unpaid bills are the following: ")
     for bill in bills:
         print(bill.toString())
-    chosenbill = str(input("Enter the ID of the bill you have paid:"))
+    chosenbill = str(input("Enter the ID of the bill you have paid: "))
     bills1 = db1.getObjectsFrom("bills", lambda x: (x.getUserName() == userName and x.isPaid() == 'n' and x.findid() == chosenbill))
     for bill in bills1:
         bill.setPaid("y")
@@ -123,13 +123,13 @@ def changeBillStatus(db1, userName):
 
 def deleteBill(db1, userName):
   bills = db1.getObjectsFrom("bills", lambda x: (x.getUserName() == userName))
-  print("Your registered bills are the following:")
+  print("Your registered bills are the following: ")
   for bill in bills:
     print(bill.toString())
-  chosenbill = str(input("Enter the ID of the bill you wish to delete:"))
+  chosenbill = str(input("Enter the ID of the bill you wish to delete: "))
   bills1 = db1.getObjectsFrom("bills", lambda x: (x.getUserName() == userName and x.findid() == chosenbill))
   for bill1 in bills1:
-    print("You are deleting the following bill:")
+    print("You are deleting the following bill: ")
     print(bill1.toString())
     db1.deleteObjectsFrom("bills", lambda x: (x.getUserName() == userName and x.findid() == chosenbill))
 
@@ -185,7 +185,7 @@ while True:
 
             db1.appendObjectsInto('users', [userObj])
         except:
-            print("Error occured during adding a user in the database")
+            print("Error occured during adding a user in the database.")
         continue
 
     else:
