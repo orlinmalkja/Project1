@@ -21,6 +21,12 @@ class Bill:
     def getUserName(self):
         return self._userName
 
+    def getDate(self):
+        return self._date
+
+    def getAmount(self):
+        return float(self._amount)
+
     def toString(self):
         return str(self._id)+","+str(self._isPaid)+","+self._date.toString()+","+str(self._billType)+","+str(self._amount)+","+str(self._userName)
 

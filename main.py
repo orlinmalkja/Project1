@@ -3,6 +3,7 @@ from database import *
 from user import User
 from date import Date
 from bill import Bill
+import matplotlib.pyplot as plt
 
 disp = Display()
 db1 = Database("database")
@@ -14,16 +15,56 @@ def registerUser():
     userObj = User(id, name, Date.fromString(birthday), email, password, address, status)
     return userObj
 
+def viewExpenses(db1, userName):
+    user_input = input("Press 0-view Expenses by year , 1-view Expenses by month")
+
+    if user_input == "0":
+        start_year = int(input("Please enter the starting year that you want to view the total expenses"))
+        end_year = int(input("Please enter the end year that you want to view the total expenses"))
+        num_years = end_year - start_year +1
+        years = []
+        total_expenses = []
+
+        for i in range(num_years):
+            years.append(start_year+i)
+
+        for i in range(num_years):
+            year = str(years[i])
+            bills = db1.getObjectsFrom("bills",
+                                       lambda x: (x.getUserName() == userName and x.getDate().getYear() == year))
+            single_year_expense = 0
+            for i in range(len(bills)):
+                single_year_expense += bills[i].getAmount()
+            total_expenses.append(single_year_expense)
+
+        plt.plot(years, total_expenses)
+
+        print("years ",years)
+
+        print("expenses",total_expenses)
+        # naming the x axis
+        plt.xlabel('Years')
+        # naming the y axis
+        plt.ylabel('Total Expenses')
+
+        # giving a title to my graph
+        plt.title('Total Expenses graph')
+
+        # function to show the plot
+        plt.show()
+
 def manageBills(db1,userName):
-    while True:
-        print(" 1 add a bill, 2-change bill status , 3-show unpaid bills 4-delete a bill 5-main menu")
+     while True:
+        print(" 1 add a bill, 2-change bill status , 3-show unpaid bills 4-delete a bill 5-View expenses 6-Main Menu")
         a = input("Please enter the number")
-        if a=="1":
-            addbill(db1,userName)
-        elif a=="2":
-            changeBillStatus(db1,userName)
-        elif a=="3":
-            showUnpayedBills(db1,userName)
+        if a == "1":
+            addbill(db1, userName)
+        elif a == "2":
+            changeBillStatus(db1, userName)
+        elif a == "3":
+            showUnpayedBills(db1, userName)
+        elif a == "5":
+            viewExpenses(db1, userName)
         else:
             return
 #
