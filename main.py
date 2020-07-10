@@ -43,7 +43,10 @@ def showUnpayedBills(db1,userName):
     bills = db1.getObjectsFrom("bills",lambda x:( x.getUserName()==userName and x.isPaid()=='n' ))
 
     print("The Unpaid bills are the following")
-    for bill in bills:
+    if len(bills) ==0:
+      print("Heyoo there are no unpaid bills")
+    else:
+      for bill in bills:
             print(bill.toString())
     #shto gjendjen e bill qe do ndryshuar, shto ndryshimin nga y ne n
     return
@@ -70,8 +73,12 @@ def changeBillStatus(db1, email):
     bills1 = db1.getObjectsFrom("bills", lambda x: (x.getUserName() == userName and x.isPaid() == 'n' and x.findid() == chosenbill))
     for bill in bills1:
         bill.setPaid("y")
-        print(bill.toString())
+        db1.deleteObjectsFrom("bills",lambda x: (x.findid() == chosenbill ))
+        db1.appendObjectsInto("bills",[bill])
 
+    return
+
+    
 
 
 # create tables which are not created yet

@@ -16,7 +16,7 @@ class Bill:
         return self._isPaid
 
     def setPaid(self, x):
-        self.isPaid = x
+        self._isPaid = x
 
     def getUserName(self):
         return self._userName
