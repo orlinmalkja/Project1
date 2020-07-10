@@ -63,6 +63,8 @@ def manageBills(db1,userName):
             changeBillStatus(db1, userName)
         elif a == "3":
             showUnpayedBills(db1, userName)
+        elif a == "4":
+            deleteBill(db1, email)
         elif a == "5":
             viewExpenses(db1, userName)
         else:
@@ -83,9 +85,9 @@ def showUnpayedBills(db1,userName):
 
     bills = db1.getObjectsFrom("bills",lambda x:( x.getUserName()==userName and x.isPaid()=='n' ))
 
-    print("The Unpaid bills are the following")
+    print("The Unpaid bills are the following:")
     if len(bills) ==0:
-      print("Heyoo there are no unpaid bills")
+      print("There are no unpaid bills.")
     else:
       for bill in bills:
             print(bill.toString())
@@ -104,10 +106,10 @@ def addbill(db1, userName):
     except:
         print("Error while adding a bill in the database")
 
-def changeBillStatus(db1, email):
+def changeBillStatus(db1, userName):
     bills = db1.getObjectsFrom("bills", lambda x: (x.getUserName() == userName and x.isPaid() == 'n'))
 
-    print("The Unpaid bills are the following")
+    print("The Unpaid bills are the following:")
     for bill in bills:
         print(bill.toString())
     chosenbill = str(input("Enter the ID of the bill you have paid:"))
@@ -119,7 +121,17 @@ def changeBillStatus(db1, email):
 
     return
 
-    
+def deleteBill(db1, userName):
+  bills = db1.getObjectsFrom("bills", lambda x: (x.getUserName() == userName))
+  print("Your registered bills are the following:")
+  for bill in bills:
+    print(bill.toString())
+  chosenbill = str(input("Enter the ID of the bill you wish to delete:"))
+  bills1 = db1.getObjectsFrom("bills", lambda x: (x.getUserName() == userName and x.findid() == chosenbill))
+  for bill1 in bills1:
+    print("You are deleting the following bill:")
+    print(bill1.toString())
+    db1.deleteObjectsFrom("bills", lambda x: (x.getUserName() == userName and x.findid() == chosenbill))
 
 
 # create tables which are not created yet
